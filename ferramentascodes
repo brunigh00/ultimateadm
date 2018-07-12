@@ -31,7 +31,7 @@ return
 fi
 useradd -M -s /bin/false $1 -e $4
 (echo $2; echo $2) | passwd $1 2>/dev/null
-echo -e "${cor[5]} $1 Criado Com Sucesso!"
+echo -e "${cor[5]} $1 Criado com sucesso!"
 echo -e "Usuario: $1"
 echo -e "Senha: $2"
 echo -e "Loguins: $3"
@@ -167,7 +167,7 @@ if [ "$pid_badvpn" = "" ]; then
     echo -e "${cor[1]} =================================== ${cor[0]}"
     if [[ ! -e /bin/badvpn-udpgw ]]; then
     cd $HOME
-    wget https://www.dropbox.com/s/uu3opxoevth47af/badvpn-udpgw -o /dev/null
+    wget https://www.dropbox.com/s/0rlbvw9xky5h2nj/badvpn-udpgw -o /dev/null
     mv -f $HOME/badvpn-udpgw /bin/badvpn-udpgw
     chmod 777 /bin/badvpn-udpgw
     fi
@@ -782,9 +782,9 @@ barra="${cor[1]} =================================== ${cor[0]}"
 [[ -e /etc/adm-lite/idioma_menuinst ]] && id="$(cat /etc/adm-lite/idioma_menuinst)" || id=pt
 [[ $(iptables -h|wc -l) -lt 5 ]] && apt-get install iptables -y > /dev/null 2>-1
 NIC=$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)
-echo -e "$barra\n $(source trans -b pt:${id} "Essas configuracoes so Devem ser adicionadas")"
-echo -e " $(source trans -b pt:${id} "apos a vps estar totalmente configurada!")\n$barra"
-echo -e " $(source trans -b pt:${id} "Deseja Prosseguir?")"
+echo -e "$barra\n $(source trans -b pt:${id} "Essas configurações só devem ser adicionadas")"
+echo -e " $(source trans -b pt:${id} "após a vps estar totalmente configurada!")\n$barra"
+echo -e " $(source trans -b pt:${id} "Deseja continuar?")"
 read -p " [S/N]: " -e -i n PROS
 [[ $PROS = @(s|S|y|Y) ]] || return 1
 fun_ip #Pega IP e armazena em uma variavel
