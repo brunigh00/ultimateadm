@@ -1,5 +1,32 @@
 #!/bin/bash
-
+fun_bar () {
+comando[0]="$1"
+comando[1]="$2"
+ (
+[[ -e $HOME/fim ]] && rm $HOME/fim
+${comando[0]} -y > /dev/null 2>&1
+${comando[1]} -y > /dev/null 2>&1
+touch $HOME/fim
+ ) > /dev/null 2>&1 &
+sp="/-\|"
+unset a
+while [[ ! -e $HOME/fim ]]; do
+  for((i=0; i<5; i++)); do
+    echo -ne "\033[1;33m ["
+    a+="#"
+    echo -ne "\033[1;31m${a}"
+    echo -ne "\033[1;33m]" 
+    echo -ne " - \033[1;33m[\033[1;32m"
+    echo -ne "${sp:i%${#sp}:1}"
+    echo -e "\033[1;33m]"
+    sleep 1
+    tput cuu1
+    tput dl1
+  done
+done
+echo -e " \033[1;33m[\033[1;31m${a}\033[1;33m] - \033[1;33m[\033[1;32m100%\033[1;33m]\033[0m"
+rm $HOME/fim
+}
 instalar_fun () {
 cor[2]="\033[1;37m"
 text=$(source trans -b pt:${id} "Instalando")
@@ -203,12 +230,12 @@ fi
 funcao_cores () {
 echo -e "${cor[1]} =================================== ${cor[0]}"
 echo -e "${cor[5]} ${txt[21]}"
-echo -e "${cor[1]} â€¢ AABBCCDDEEFF"
-echo -e "${cor[2]} â€¢ AABBCCDDEEFF"
-echo -e "${cor[3]} â€¢ AABBCCDDEEFF"
-echo -e "${cor[4]} â€¢ AABBCCDDEEFF"
-echo -e "${cor[5]} â€¢ AABBCCDDEEFF"
-echo -e "${cor[6]} â€¢ AABBCCDDEEFF"
+echo -e "${cor[1]} • AABBCCDDEEFF"
+echo -e "${cor[2]} • AABBCCDDEEFF"
+echo -e "${cor[3]} • AABBCCDDEEFF"
+echo -e "${cor[4]} • AABBCCDDEEFF"
+echo -e "${cor[5]} • AABBCCDDEEFF"
+echo -e "${cor[6]} • AABBCCDDEEFF"
 ncor[1]="\033[1;31m"
 ncor[2]="\033[1;32m"
 ncor[3]="\033[1;33m"
@@ -217,9 +244,9 @@ ncor[5]="\033[1;35m"
 ncor[6]="\033[1;36m"
 ncor[7]="\033[1;37m"
 echo -e "${cor[1]} =================================== ${cor[0]}"
-echo -e "${ncor[1]} [1]â€¢AA ${ncor[2]} [2]â€¢AA ${ncor[3]} [3]â€¢AA"
-echo -e "${ncor[4]} [4]â€¢AA ${ncor[5]} [5]â€¢AA ${ncor[6]} [6]â€¢AA"
-echo -e "${ncor[7]} [7]â€¢AA"
+echo -e "${ncor[1]} [1]•AA ${ncor[2]} [2]•AA ${ncor[3]} [3]•AA"
+echo -e "${ncor[4]} [4]•AA ${ncor[5]} [5]•AA ${ncor[6]} [6]•AA"
+echo -e "${ncor[7]} [7]•AA"
 echo -e "${cor[1]} =================================== ${cor[0]}"
 echo -e "${cor[5]} ${txt[22]}"
 unset ncor
@@ -276,12 +303,12 @@ unset __vencidos
 }
 
 funcao_idioma () {
-idioma[1]="en Inglês"
-idioma[2]="fr Francês"
-idioma[3]="de Alemão"
-idioma[4]="it Italiano"
-idioma[5]="pt Português"
-idioma[6]="es Espanhou"
+idioma[1]="en English"
+idioma[2]="fr Franch"
+idioma[3]="de German"
+idioma[4]="it Italian"
+idioma[5]="pt Portuguese"
+idioma[6]="es Spanish"
 i="1"
 echo -e "${cor[1]} =================================== ${cor[0]}"
 echo -e "${cor[5]} ${txt[77]} ${txt[78]}
@@ -432,7 +459,7 @@ txt_ofuscatw=$(echo $txtofus|rev)
 fun_atualizar () {
 cd /etc/adm-lite
 chmod 777 ./*
-echo -e "${cor[3]} "Â¿Realmente desea actualizar su ADM-Ultimate?""
+echo -e "${cor[3]} "¿Realmente desea actualizar su ADM-Ultimate?""
 read -p " [S/N]: " -e -i n sshsn
 [[ "$sshsn" = @(s|S|y|Y) ]] && {
 [[ -e /etc/adm-lite/idioma ]] && rm /etc/adm-lite/idioma
@@ -684,12 +711,12 @@ i=1
 while true; do
 a=$(sed -n "$i"p $porta_var | awk '{print $1}')
 b=$(sed -n "$i"p $porta_var | awk '{print $2}')
-[[ "$a" != "" ]] && texto="${cor[2]} Â° \033[1;37m$a: \033[1;31m$b" || texto=""
+[[ "$a" != "" ]] && texto="${cor[2]} ° \033[1;37m$a: \033[1;31m$b" || texto=""
 [[ "$a" = "" ]] && break
 i=$(($i+1))
 c=$(sed -n "$i"p $porta_var | awk '{print $1}')
 d=$(sed -n "$i"p $porta_var | awk '{print $2}')
-[[ "$c" != "" ]] && texto_="${cor[2]} Â° \033[1;37m$c: \033[1;31m$d" || texto_=""
+[[ "$c" != "" ]] && texto_="${cor[2]} ° \033[1;37m$c: \033[1;31m$d" || texto_=""
 [[ "$a" = "" ]] && break
 i=$(($i+1))
 echo -e "$texto $texto_"
@@ -702,13 +729,13 @@ rm $porta_var
 credit=$(cat ./menu_credito)
 __IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 echo -e "${cor[1]} =================================== ${cor[0]}"
-echo -e "${cor[2]} âˆ† \033[1;37m$credit"
-echo -e "${cor[2]} âˆš \033[1;37m${txt[0]}"
+echo -e "${cor[2]} ∆ \033[1;37m$credit"
+echo -e "${cor[2]} √ \033[1;37m${txt[0]}"
 echo -e "${cor[1]} =================================== ${cor[0]}"
 [[ "$VERIFICAR" = "on" ]] && 
-echo -e "${cor[2]} Â° \033[1;37m${txt[1]} $__onlines ${cor[2]}    Â° \033[1;37m${txt[2]} $__vencidos"
-echo -e "${cor[2]} Â° \033[1;37m${txt[3]} $_os"
-echo -e "${cor[2]} Â° \033[1;37m${txt[331]} \033[1;31m$__IP"
+echo -e "${cor[2]} ° \033[1;37m${txt[1]} $__onlines ${cor[2]}    ° \033[1;37m${txt[2]} $__vencidos"
+echo -e "${cor[2]} ° \033[1;37m${txt[3]} $_os"
+echo -e "${cor[2]} ° \033[1;37m${txt[331]} \033[1;31m$__IP"
 echo -e "${cor[1]} =================================== ${cor[0]}"
 ports_
 echo -e "${cor[1]} =================================== ${cor[0]}"
