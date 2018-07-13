@@ -506,8 +506,8 @@ coleta_variaveis () {
 	echo -e "$barra"
 	}
 parametros_iniciais # BREVE VERIFICACAO
-coleta_variaveis # COLETA VARIAVEIS PARA INSTALA��O
-add_repo # ATUALIZA REPOSIT�RIO OPENVPN E INSTALA OPENVPN
+coleta_variaveis # COLETA VARIAVEIS PARA INSTALAÇÃO
+add_repo # ATUALIZA REPOSITORIO OPENVPN E INSTALA OPENVPN
 # Cria Diretorio
 [[ ! -d /etc/openvpn ]] && mkdir /etc/openvpn
 # Install openvpn
@@ -577,7 +577,7 @@ dns[0]='push "dhcp-option DNS 176.103.130.130"'
 dns[1]='push "dhcp-option DNS 176.103.130.131"'
 ;;
 esac
-cat > /etc/openvpn/server.conf <<EOF
+cat > /etc/openvpn/server.conf
 server 10.8.0.0 255.255.255.0
 verb 3
 duplicate-cn
@@ -638,7 +638,7 @@ while [[ $? != "1" ]]; do
 read -p " Confirme un Puerto(Proxy): " -e -i 80 PPROXY
 teste_porta $PPROXY
 done
-cat > /etc/openvpn/client-common.txt <<EOF
+cat > /etc/openvpn/client-common.txt
 client
 dev tun
 proto ${PROTOCOL}
@@ -669,7 +669,7 @@ else
     iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -j SNAT --to-source $SERVER_IP
 fi
 iptables-save > /etc/iptables.conf
-cat > /etc/network/if-up.d/iptables <<EOF
+cat > /etc/network/if-up.d/iptables
 #!/bin/sh
 iptables-restore < /etc/iptables.conf
 EOF
