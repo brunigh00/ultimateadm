@@ -578,7 +578,7 @@ dns[1]='push "dhcp-option DNS 176.103.130.131"'
 ;;
 esac
 cat > /etc/openvpn/server.conf
-server 10.8.0.0 255.255.255.0
+server 10.8.0.0 255.255.255.0 <<EOF
 verb 3
 duplicate-cn
 key client-key.pem
@@ -639,7 +639,7 @@ read -p " Confirme un Puerto(Proxy): " -e -i 80 PPROXY
 teste_porta $PPROXY
 done
 cat > /etc/openvpn/client-common.txt
-client
+client <<EOF
 dev tun
 proto ${PROTOCOL}
 sndbuf 0
