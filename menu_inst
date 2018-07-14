@@ -536,7 +536,7 @@ case $DNS in
 1)
 i=0
 grep -v '#' /etc/resolv.conf | grep 'nameserver' | grep -E -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | while read line; do
-dns[$i]="push \"dhcp-option DNS $line\"" >> /etc/openvpn/server.conf
+dns[$i]="push \"dhcp-option DNS $line\""
 done
 if [[ ! "${dns[@]}" ]]; then
 dns[0]='push "dhcp-option DNS 8.8.8.8"'
@@ -592,6 +592,8 @@ persist-key
 persist-tun
 comp-lzo
 push "redirect-gateway def1 bypass-dhcp"
+${dns[0]}
+${dns[1]}
 user nobody
 group nogroup
 ${CIPHER}
@@ -601,8 +603,7 @@ dev tun
 status openvpn-status.log
 EOF
 PLUGIN=$(find / | grep openvpn-plugin-auth-pam.so | head -1) && [[ $(echo ${PLUGIN}) != "" ]] && {
-echo "client-to-client
-client-cert-not-required
+echo"client-cert-not-required
 username-as-common-name
 plugin $PLUGIN login" >> /etc/openvpn/server.conf
 }
