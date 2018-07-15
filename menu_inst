@@ -515,7 +515,7 @@ echo -ne "\033[1;31m [ ! ] apt-get update"
 apt-get update -q > /dev/null 2>&1 && echo -e "\033[1;32m [OK]"
 echo -ne "\033[1;31m [ ! ] apt-get install openvpn"
 apt-get install -qy openvpn curl > /dev/null 2>&1 && echo -e "\033[1;32m [OK]"
-apt-get install openvpn iptables openssl ca-certificates -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]"
+apt-get install openvpn iptables openssl ca-certificates -y > /dev/null 2>&1
 # IP Address
 SERVER_IP=$(wget -qO- ipv4.icanhazip.com)
 if [[ -z "${SERVER_IP}" ]]; then
