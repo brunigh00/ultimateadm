@@ -557,40 +557,40 @@ server 10.8.0.0 255.255.255.0" > /etc/openvpn/server.conf
 			echo "push \"dhcp-option DNS $line\"" >> /etc/openvpn/server.conf
 		done
 		;;
-		dns[0]='push "dhcp-option DNS 8.8.8.8"'
-		dns[1]='push "dhcp-option DNS 8.8.4.4"'
+		dns[0]='push "dhcp-option DNS 8.8.8.8"' >> /etc/openvpn/server.conf
+		dns[1]='push "dhcp-option DNS 8.8.4.4"' >> /etc/openvpn/server.conf
 		;;
 		2)
-		dns[0]='push "dhcp-option DNS 1.0.0.1"'
-		dns[1]='push "dhcp-option DNS 1.1.1.1"'
+		dns[0]='push "dhcp-option DNS 1.0.0.1"' >> /etc/openvpn/server.conf
+		dns[1]='push "dhcp-option DNS 1.1.1.1"' >> /etc/openvpn/server.conf
 		;;
 		3)
-		dns[0]='push "dhcp-option DNS 9.9.9.9"'
-		dns[1]='push "dhcp-option DNS 1.1.1.1"'
+		dns[0]='push "dhcp-option DNS 9.9.9.9"' >> /etc/openvpn/server.conf
+		dns[1]='push "dhcp-option DNS 1.1.1.1"' >> /etc/openvpn/server.conf
 		;;
 		4)
-		dns[0]='push "dhcp-option DNS 80.67.169.40"'
-		dns[1]='push "dhcp-option DNS 80.67.169.12"'
+		dns[0]='push "dhcp-option DNS 80.67.169.40"' >> /etc/openvpn/server.conf
+		dns[1]='push "dhcp-option DNS 80.67.169.12"' >> /etc/openvpn/server.conf
 		;;
 		5)
-		dns[0]='push "dhcp-option DNS 84.200.69.80"'
-		dns[1]='push "dhcp-option DNS 84.200.70.40"'
+		dns[0]='push "dhcp-option DNS 84.200.69.80"' >> /etc/openvpn/server.conf
+		dns[1]='push "dhcp-option DNS 84.200.70.40"' >> /etc/openvpn/server.conf
 		;;
 		6)
-		dns[0]='push "dhcp-option DNS 208.67.222.222"'
-		dns[1]='push "dhcp-option DNS 208.67.220.220"'
+		dns[0]='push "dhcp-option DNS 208.67.222.222"' >> /etc/openvpn/server.conf
+		dns[1]='push "dhcp-option DNS 208.67.220.220"' >> /etc/openvpn/server.conf
 		;;
 		7)
-		dns[0]='push "dhcp-option DNS 8.8.8.8"'
-		dns[1]='push "dhcp-option DNS 8.8.4.4"'
+		dns[0]='push "dhcp-option DNS 8.8.8.8"' >> /etc/openvpn/server.conf
+		dns[1]='push "dhcp-option DNS 8.8.4.4"' >> /etc/openvpn/server.conf
 		;;
 		8)
-		dns[0]='push "dhcp-option DNS 77.88.8.8"'
-		dns[1]='push "dhcp-option DNS 77.88.8.1"'
+		dns[0]='push "dhcp-option DNS 77.88.8.8"' >> /etc/openvpn/server.conf
+		dns[1]='push "dhcp-option DNS 77.88.8.1"' >> /etc/openvpn/server.conf
 		;;
 		9)
-		dns[0]='push "dhcp-option DNS 176.103.130.130"'
-		dns[1]='push "dhcp-option DNS 176.103.130.131"'
+		dns[0]='push "dhcp-option DNS 176.103.130.130"' >> /etc/openvpn/server.conf
+		dns[1]='push "dhcp-option DNS 176.103.130.131"' >> /etc/openvpn/server.conf
 		;;
 	esac
 	echo "keepalive 10 120
