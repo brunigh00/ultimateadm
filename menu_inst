@@ -603,7 +603,7 @@ dev tun
 status openvpn-status.log
 EOF
 PLUGIN=$(find / | grep openvpn-plugin-auth-pam.so | head -1) && [[ $(echo ${PLUGIN}) != "" ]] && {
-echo"client-cert-not-required
+echo "client-cert-not-required
 username-as-common-name
 plugin $PLUGIN login" >> /etc/openvpn/server.conf
 }
