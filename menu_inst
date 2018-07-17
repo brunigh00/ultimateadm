@@ -654,7 +654,6 @@ exit 0' > $RCLOCAL
 	fi
 	chmod +x $RCLOCAL
 ) && echo -e "\033[1;32m [OK]"
-
 teste_porta () {
   echo -ne " \033[1;31m$(source trans -b es:${id} "Verificando: ")"
   sleep 1s
