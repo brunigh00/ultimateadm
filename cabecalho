@@ -468,8 +468,8 @@ read -p " [S/N]: " -e -i n sshsn
 return 0
 }
 
-#GERA NOVO CLIENTE
-	newclient () {
+#GERA NOVO CLIENTE 
+newclient () {
 cp /etc/openvpn/client-common.txt $HOME/$1.ovpn
 echo "<ca>
 $(cat /etc/openvpn/easy-rsa/pki/ca.crt)
