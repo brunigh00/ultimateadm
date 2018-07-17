@@ -609,7 +609,6 @@ echo 'push "redirect-gateway def1 bypass-dhcp"' >> /etc/openvpn/server.conf
 		dns[1]='push "dhcp-option DNS 176.103.130.131"' >> /etc/openvpn/server.conf
 		;;
 	esac
-	
 echo "keepalive 10 120
 ${CIPHER}
 comp-lzo
@@ -644,10 +643,8 @@ while [[ $? != "1" ]]; do
 read -p " Confirme un Puerto(Proxy): " -e -i 80 PPROXY
 teste_porta $PPROXY
 done
-# Generate Client Config
-echo -ne "\033[1;31m [ ! ] Generating Client Config"
-(
-echo "client
+cat > /etc/openvpn/client-common.txt <<EOF
+client 
 dev tun
 proto ${PROTOCOL}
 sndbuf 0
@@ -665,7 +662,8 @@ comp-lzo
 setenv opt block-outside-dns
 key-direction 1
 verb 3
-auth-user-pass" > /etc/openvpn/client-common.txt
+auth-user-pass
+EOF
 # Needed to use rc.local with some systemd distros
 	if [[ "$OS" = 'debian' && ! -e $RCLOCAL ]]; then
 		echo '#!/bin/sh -e
