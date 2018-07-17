@@ -303,12 +303,12 @@ unset __vencidos
 }
 
 funcao_idioma () {
-idioma[1]="en English"
-idioma[2]="fr Franch"
-idioma[3]="de German"
-idioma[4]="it Italian"
-idioma[5]="pt Portuguese"
-idioma[6]="es Spanish"
+idioma[1]="en Inglês"
+idioma[2]="fr Francês"
+idioma[3]="de Alemão"
+idioma[4]="it Italiano"
+idioma[5]="pt Português"
+idioma[6]="es Espanhou"
 i="1"
 echo -e "${cor[1]} =================================== ${cor[0]}"
 echo -e "${cor[5]} ${txt[77]} ${txt[78]}
@@ -481,7 +481,6 @@ $(cat /etc/openvpn/client-cert.pem)
 $(cat /etc/openvpn/ca.pem)
 </ca>" >> $HOME/$1.ovpn
 }
-
 open_1 () {
 CLIENT="$1"
 senha="$2"
