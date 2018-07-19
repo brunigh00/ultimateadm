@@ -303,12 +303,12 @@ unset __vencidos
 }
 
 funcao_idioma () {
-idioma[1]="en Inglês"
-idioma[2]="fr Francês"
-idioma[3]="de Alemão"
-idioma[4]="it Italiano"
-idioma[5]="pt Português"
-idioma[6]="es Espanhou"
+idioma[1]="en English"
+idioma[2]="fr Franch"
+idioma[3]="de German"
+idioma[4]="it Italian"
+idioma[5]="pt Portuguese"
+idioma[6]="es Spanish"
 i="1"
 echo -e "${cor[1]} =================================== ${cor[0]}"
 echo -e "${cor[5]} ${txt[77]} ${txt[78]}
@@ -459,7 +459,7 @@ txt_ofuscatw=$(echo $txtofus|rev)
 fun_atualizar () {
 cd /etc/adm-lite
 chmod 777 ./*
-echo -e "${cor[3]} "Deseja realmente atualizar seu ADM-Ultimate?""
+echo -e "${cor[3]} "¿Realmente desea actualizar su ADM-Ultimate?""
 read -p " [S/N]: " -e -i n sshsn
 [[ "$sshsn" = @(s|S|y|Y) ]] && {
 [[ -e /etc/adm-lite/idioma ]] && rm /etc/adm-lite/idioma
@@ -468,22 +468,20 @@ read -p " [S/N]: " -e -i n sshsn
 return 0
 }
 
-#GERA NOVO CLIENTE 
+#GERA NOVO CLIENTE
 newclient () {
 cp /etc/openvpn/client-common.txt $HOME/$1.ovpn
-echo "<ca>
-$(cat /etc/openvpn/easy-rsa/pki/ca.crt)
-</ca>
-<cert>
-$(cat /etc/openvpn/easy-rsa/pki/issued/$1.crt)
-</cert>
-<key>
-$(cat /etc/openvpn/easy-rsa/pki/private/$1.key)
+echo "<key>
+$(cat /etc/openvpn/client-key.pem)
 </key>
-<tls-auth>
-$(cat /etc/openvpn/ta.key)
-</tls-auth>" >> $HOME/$1.ovpn
+<cert>
+$(cat /etc/openvpn/client-cert.pem)
+</cert>
+<ca>
+$(cat /etc/openvpn/ca.pem)
+</ca>" >> $HOME/$1.ovpn
 }
+
 open_1 () {
 CLIENT="$1"
 senha="$2"
@@ -509,7 +507,7 @@ read -p " [S/N]: " -e -i S newfile
   cd $HOME
   zip ./$CLIENT.zip ./$CLIENT.ovpn > /dev/null 2>&1
   echo -e "\033[1;31m ${txt[320]} ($HOME/$CLIENT.zip)"
-  echo -e "\033[1;32m ${txt[321]} ( * menu * opção 2 * opção 8 )"
+  echo -e "\033[1;32m ${txt[321]} ( * menu * opcion 2 * opcion 8 )"
   }
 rm ./$CLIENT.ovpn
 cd /etc/adm-lite
