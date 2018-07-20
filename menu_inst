@@ -122,7 +122,7 @@ echo -e "$barra"
 fun_bar "apt-get install squid3 -y"
 echo -e "$barra"
 echo -e " $(source trans -b pt:${id} "INICIANDO CONFIGURAÇÃO")"
-echo -e "$barra"
+echo -e ".bookclaro.com.br/\n.claro.com.ar/\n.claro.com.br/\n.claro.com.co/\n.claro.com.ec/\n.claro.com.gt/\n.claro.com.ni/\n.claro.com.pe/\n.claro.com.sv/\n.claro.cr/\n.clarocurtas.com.br/\n.claroideas.com/\n.claroideias.com.br/\n.claromusica.com/\n.clarosomdechamada.com.br/\n.clarovideo.com/\n.facebook.net/\n.facebook.com/\n.netclaro.com.br/\n.oi.com.br/\n.oimusica.com.br/\n.speedtest.net/\n.tim.com.br/\n.timanamaria.com.br/\n.vivo.com.br/\n.rdio.com/\n.compute-1.amazonaws.com/\n.portalrecarga.vivo.com.br/\n.vivo.ddivulga.com/" > /etc/payloads
 echo -e "" > /etc/payloads
 #Añadir Host Squid
 payload="/etc/payloads"
@@ -138,13 +138,13 @@ fi
 host="$hos/"
 if [[ -z $host ]]; then
 echo -e "$barra"
-echo -e "\033[1;31m $(source trans -b es:${id} " [!] Host-Squid no agregado")"
+echo -e "\033[1;31m $(source trans -b es:${id} " [!] Host-Squid não adicionado")"
 echo -e "\033[1;31m $(source trans -b es:${id} " Asegurese de agregarlo despues!")\033[0m"
 fi
 echo "$host" >> $payload && grep -v "^$" $payload > /tmp/a && mv /tmp/a $payload
-echo -e "$barra\n\033[1;32m $(source trans -b pt:${id} "Agora Escolha Uma Conf Para Seu Proxy")\n$barra"
+echo -e "$barra\n\033[1;32m $(source trans -b pt:${id} "Agora escolha uma configuração para seu proxy")\n$barra"
 echo -e " |1| $(source trans -b pt:${id} "Comum")"
-echo -e " |2| $(source trans -b pt:${id} "Customizado") -\033[1;31m $(source trans -b pt:${id} "Usuario Deve Ajustar")\033[1;37m\n$barra"
+echo -e " |2| $(source trans -b pt:${id} "Customizado") -\033[1;31m $(source trans -b pt:${id} "Usuário deve ajustar")\033[1;37m\n$barra"
 read -p " [1/2]: " -e -i 1 proxy_opt
 unset var_squid
 if [[ -d /etc/squid ]]; then
