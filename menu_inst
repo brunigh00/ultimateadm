@@ -133,13 +133,13 @@ read -p " $(source trans -b es:${id} "Adicionar Host"): " hos
 if [[ $hos != \.* ]]; then
 echo -e "$barra"
 echo -e "\033[1;31m $(source trans -b es:${id} " [!] Host-Squid deve iniciar com um "."")\033[0m"
-echo -e "\033[1;31m $(source trans -b es:${id} " Asegurese de agregarlo despues corretamente!")\033[0m"
+echo -e "\033[1;31m $(source trans -b es:${id} " Não esqueça de adicioná-lo corretamente depois!")\033[0m"
 fi
 host="$hos/"
 if [[ -z $host ]]; then
 echo -e "$barra"
 echo -e "\033[1;31m $(source trans -b es:${id} " [!] Host-Squid não adicionado")"
-echo -e "\033[1;31m $(source trans -b es:${id} " Asegurese de agregarlo despues!")\033[0m"
+echo -e "\033[1;31m $(source trans -b es:${id} " Não esqueça de adicioná-lo depois!")\033[0m"
 fi
 echo "$host" >> $payload && grep -v "^$" $payload > /tmp/a && mv /tmp/a $payload
 echo -e "$barra\n\033[1;32m $(source trans -b pt:${id} "Agora escolha uma configuração para seu proxy")\n$barra"
