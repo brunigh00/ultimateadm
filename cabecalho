@@ -370,6 +370,17 @@ unset idioma
 exit 0
 }
 
+traduzir () {
+apt-get install gawk -y > /dev/null 2>&1
+[[ -e $_tmp4 ]] && rm $_tmp4
+rm $_dr && rm $_idioma
+cd /etc/adm-lite
+wget https://raw.githubusercontent.com/CarlosPBric005/IDIOMA_VPS/master/$1/idioma
+unset txt
+touch $HOME/fim
+exit 0
+}
+
 #PREENXE_VARIAVEL $select_name
 select_users () {
 _cont="1"
@@ -455,6 +466,61 @@ read -p " [S/N]: " -e -i n sshsn
 ./updateadm
 }
 return 0
+}
+
+#GERA NOVO CLIENTE
+newclient () {
+cp /etc/openvpn/client-common.txt $HOME/$1.ovpn
+echo "<key>
+$(cat /etc/openvpn/client-key.pem)
+</key>
+<cert>
+$(cat /etc/openvpn/client-cert.pem)
+</cert>
+<ca>
+$(cat /etc/openvpn/ca.pem)
+</ca>" >> $HOME/$1.ovpn
+}
+
+open_1 () {
+CLIENT="$1"
+senha="$2"
+daysrnf="$3"
+limit="$4"
+#cd /etc/openvpn/easy-rsa/
+#./easyrsa build-client-full $CLIENT nopass
+newclient "$CLIENT"
+#echo ""
+#echo "$CLIENT KEY" ~/"$CLIENT.ovpn"
+valid=$(date '+%C%y-%m-%d' -d " +$daysrnf days")
+datexp=$(date "+%d/%m/%Y" -d "+ $daysrnf days")
+useradd -M -s /bin/false -d /home/ovpn/ $CLIENT -e $valid
+usermod -p $(openssl passwd -1 $senha) $CLIENT
+#Arquivo
+echo -e " ${txt[318]}"
+echo -e "${cor[1]} =================================== \033[1;37m"
+read -p " [S/N]: " -e -i S newfile
+  [[ ${newfile} = @(s|S|y|Y) ]] && {
+  echo -e " ${txt[319]}"
+  read -p " [S/N]: " -e -i S ovpnauth
+  [[ ${ovpnauth} != @(s|S|y|Y) ]] && sed -i "s;auth-user-pass;<auth-user-pass>\n$CLIENT\n$senha\n</auth-user-pass>;g" $HOME/$CLIENT.ovpn
+  cd $HOME
+  zip ./$CLIENT.zip ./$CLIENT.ovpn > /dev/null 2>&1
+  echo -e "\033[1;31m ${txt[320]} ($HOME/$CLIENT.zip)"
+  echo -e "\033[1;32m ${txt[321]} ( * menu * opcion 2 * opcion 8 )"
+  }
+rm ./$CLIENT.ovpn
+cd /etc/adm-lite
+echo "senha: $senha" > $dir_user/$CLIENT
+echo "limite: $limit" >> $dir_user/$CLIENT
+echo "data: $valid" >> $dir_user/$CLIENT
+}
+
+open_2 () {
+CLIENT="$1"
+userdel --force $CLIENT
+cd /etc/adm-lite
+[[ -e $dir_user/$CLIENT ]] && rm $dir_user/$CLIENT
 }
 
 #SISTEMA PORTAS
