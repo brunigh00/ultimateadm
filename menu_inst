@@ -1211,15 +1211,14 @@ echo -e "${cor[5]} ${txt[335]}"
 echo -e "$barra"
 echo -e "${cor[2]} [1] > ${cor[3]}SQUID $squid"
 echo -e "${cor[2]} [2] > ${cor[3]}DROPBEAR $dropbear"
-echo -e "${cor[2]} [3] > ${cor[3]}OPENVPN $openvpn"
-echo -e "${cor[2]} [4] > ${cor[3]}SSL TUNNEL $stunel"
-echo -e "${cor[2]} [5] > ${cor[3]}SHADOW SOCKS $shadow"
-echo -e "${cor[2]} [6] > ${cor[3]}PROXY SOCKS $socks"
-echo -e "${cor[2]} [7] > ${cor[3]}PROXY GETTUNEL $gettun"
-echo -e "${cor[2]} [8] > ${cor[3]}TCP OVER BYPASS $tcpbypass"
-echo -e "${cor[2]} [9] > ${cor[3]}TELEGRAN MANAGER BOT $telegran"
-echo -e "${cor[2]} [10] > ${cor[3]}WEBMIN $webminn"
-echo -e "${cor[2]} [11] > ${cor[3]}Anti-DDOS $ddos"
+echo -e "${cor[2]} [3] > ${cor[3]}SSL TUNNEL $stunel"
+echo -e "${cor[2]} [4] > ${cor[3]}SHADOW SOCKS $shadow"
+echo -e "${cor[2]} [5] > ${cor[3]}PROXY SOCKS $socks"
+echo -e "${cor[2]} [6] > ${cor[3]}PROXY GETTUNEL $gettun"
+echo -e "${cor[2]} [7] > ${cor[3]}TCP OVER BYPASS $tcpbypass"
+echo -e "${cor[2]} [8] > ${cor[3]}TELEGRAN MANAGER BOT $telegran"
+echo -e "${cor[2]} [9] > ${cor[3]}WEBMIN $webminn"
+echo -e "${cor[2]} [10] > ${cor[3]}Anti-DDOS $ddos"
 echo -e "$barra"
 echo -ne "\033[1;37m ${txt[338]}: "
 read optons
@@ -1231,30 +1230,27 @@ read -p " Enter";;
 fun_dropbear
 read -p " Enter";;
 3)
-fun_openvpn
-read -p " Enter";;
-4)
 ssl_stunel
 read -p " Enter";;
-5)
+4)
 fun_shadowsocks
 read -p " Enter";;
-6)
+5)
 iniciarsocks
 read -p " Enter";;
-7)
+6)
 gettunel_fun
 read -p " Enter";;
-8)
+7)
 tcpbypass_fun
 read -p " Enter";;
-9)
+8)
 telegran_bot
 read -p " Enter";;
-10)
+9)
 web_min
 read -p " Enter";;
-11)
+10)
 antiddos
 read -p " Enter";;
 esac
