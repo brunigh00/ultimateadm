@@ -470,16 +470,16 @@ return 0
 
 #GERA NOVO CLIENTE
 newclient () {
-cp /etc/openvpn/client-common.txt $HOME/$1.ovpn
+cp /etc/openvpn/client-common.txt $HOME/$1.ovpn > /dev/null 2>&1
 echo "<key>
-$(cat /etc/openvpn/client-key.pem)
+$(cat /etc/openvpn/client-key.pem) > /dev/null 2>&1
 </key>
 <cert>
-$(cat /etc/openvpn/client-cert.pem)
+$(cat /etc/openvpn/client-cert.pem) > /dev/null 2>&1
 </cert>
 <ca>
-$(cat /etc/openvpn/ca.pem)
-</ca>" >> $HOME/$1.ovpn
+$(cat /etc/openvpn/ca.pem) > /dev/null 2>&1
+</ca>" >> $HOME/$1.ovpn > /dev/null 2>&1
 }
 
 open_1 () {
@@ -499,11 +499,11 @@ usermod -p $(openssl passwd -1 $senha) $CLIENT
 #Arquivo
 echo -e " ${txt[318]}"
 echo -e "${cor[1]} =================================== \033[1;37m"
-$ka=n
-read -p " [S/N]: " ka > /dev/null 2>&1
+read -p "aperte enter" enter
+read -p " [S/N]: " -e -i N > /dev/null 2>&1
   [[ ${newfile} = @(s|S|y|Y) ]] && {
   echo -e " ${txt[319]}"
-  read -p " [S/N]: " ka > /dev/null 2>&1
+  read -p " [S/N]: " -e -i N > /dev/null 2>&1
   [[ ${ovpnauth} != @(s|S|y|Y) ]] && sed -i "s;auth-user-pass;<auth-user-pass>\n$CLIENT\n$senha\n</auth-user-pass>;g" $HOME/$CLIENT.ovpn
   cd $HOME
   zip ./$CLIENT.zip ./$CLIENT.ovpn > /dev/null 2>&1
