@@ -598,15 +598,6 @@ username-as-common-name
 plugin $PLUGIN login" >> /etc/openvpn/server.conf
 }
 ) && echo -e "\033[1;32m [OK]"
-
-# Generate Client Config
-echo -ne "\033[1;31m [ ! ] Generating Client Config"
-(
-openssl genrsa -out /etc/openvpn/client-key.pem 2048 > /dev/null 2>&1
-chmod 600 /etc/openvpn/client-key.pem
-openssl req -new -key /etc/openvpn/client-key.pem -out /etc/openvpn/client-csr.pem -subj /CN=OpenVPN-Client/ > /dev/null 2>&1
-openssl x509 -req -in /etc/openvpn/client-csr.pem -out /etc/openvpn/client-cert.pem -CA /etc/openvpn/ca.pem -CAkey /etc/openvpn/ca-key.pem -days 36525 > /dev/null 2>&1
-) && echo -e "\033[1;32m [OK]"
 teste_porta () {
   echo -ne " \033[1;31m$(source trans -b es:${id} "Verificando: ")"
   sleep 1s
@@ -795,8 +786,8 @@ case $xption in
  }
 [[ -e /etc/squid/squid.conf ]] && instala_ovpn && return 0
 [[ -e /etc/squid3/squid.conf ]] && instala_ovpn && return 0
-echo -e "$barra\n\033[1;33m $(source trans -b pt:${id} "Squid Nao Encontrado")"
-echo -e "\033[1;33m $(source trans -b pt:${id} "Prosseguir Com Instalacao?")\n$barra"
+echo -e "$barra\n\033[1;33m $(source trans -b pt:${id} "Squid não encontrado")"
+echo -e "\033[1;33m $(source trans -b pt:${id} "Prosseguir com a instalação?")\n$barra"
 read -p " [S/N]: " -e -i n instnosquid && [[ $instnosquid = @(s|S|y|Y) ]] && instala_ovpn || return 1
 }
 
@@ -808,7 +799,7 @@ rm /etc/shadowsocks.json
 return 0
 }
        while true; do
-       echo -e "${barra}\n\033[1;33m $(source trans -b pt:${id} "Selecione uma Criptografia")\n${barra}${cor[0]}"
+       echo -e "${barra}\n\033[1;33m $(source trans -b pt:${id} "Selecione uma criptografia")\n${barra}${cor[0]}"
        encript=(aes-256-gcm aes-192-gcm aes-128-gcm aes-256-ctr aes-192-ctr aes-128-ctr aes-256-cfb aes-192-cfb aes-128-cfb camellia-128-cfb camellia-192-cfb camellia-256-cfb chacha20-ietf-poly1305 chacha20-ietf chacha20 rc4-md5)
        for((s=0; s<${#encript[@]}; s++)); do
        echo -e " [${s}] - ${encript[${s}]}"
@@ -816,25 +807,25 @@ return 0
        echo -e "$barra"
        while true; do
        unset cript
-       echo -ne "$(source trans -b pt:${id} "Escolha uma Opcao"): "; read cript
+       echo -ne "$(source trans -b pt:${id} "Escolha uma opção"): "; read cript
        [[ ${encript[$cript]} ]] && break
-       echo -e "$(source trans -b pt:${id} "Opcao Invalida")"
+       echo -e "$(source trans -b pt:${id} "Opção inválida")"
        done
        echo -e "$barra"
        encriptacao="${encript[$cript]}"
        [[ ${encriptacao} != "" ]] && break
-       echo -e "$(source trans -b pt:${id} "Opcao Invalida")"
+       echo -e "$(source trans -b pt:${id} "Opção inválida")"
       done
 #ESCOLHENDO LISTEN
-      echo -e "${barra}\n\033[1;33m $(source trans -b pt:${id} "Selecione Uma Porta Para o Shadowsocks Escutar")\n${barra}${cor[0]}"
+      echo -e "${barra}\n\033[1;33m $(source trans -b pt:${id} "Selecione uma porta para o shadowsocks escutar")\n${barra}${cor[0]}"
       while true; do
       unset Lport
       read -p " Listen Port: " Lport
       [[ $(mportas|grep "$Lport") = "" ]] && break
-      echo -e " ${Lport}: $(source trans -b pt:${id} "Porta Invalida")"      
+      echo -e " ${Lport}: $(source trans -b pt:${id} "Porta Inválida")"      
       done
 #INICIANDO
-echo -e "${barra}\n\033[1;33m $(source trans -b pt:${id} "Digite a Senha Shadowsocks")${cor[0]}"
+echo -e "${barra}\n\033[1;33m $(source trans -b pt:${id} "Digite a senha shadowsocks")${cor[0]}"
 read -p" Pass: " Pass
 echo -e "${barra}\n\033[1;33m $(source trans -b pt:${id} "Instalando")\n${barra}${cor[0]}"
 fun_bar 'apt-get install python-pip python-m2crypto -y'
@@ -893,8 +884,8 @@ fun_bar "dpkg --install webmin_1.881_all.deb"
 fun_bar "apt-get -y -f install"
 rm /root/webmin_1.881_all.deb > /dev/null 2>&1
 service webmin restart > /dev/null 2>&1 
-echo -e "${barra}\n $(source trans -b pt:${id} "Accede via web usando el enlace: https;//ip_del_vps:10000")\n${barra}"
-echo -e "$(source trans -b pt:${id} "Procedimento Concluido")\n${barra}"
+echo -e "${barra}\n $(source trans -b pt:${id} "Acesse via web usando o link: https;//ip_del_vps:10000")\n${barra}"
+echo -e "$(source trans -b pt:${id} "Procedimento concluído")\n${barra}"
 return 0
 }
 
@@ -924,7 +915,7 @@ socksinstal () {
 }
 
 pconfig () {
-echo -e "${barra}\n $(source trans -b pt:${id} "Escolha a Porta em que o Socks Vai Escutar")\n${barra}"
+echo -e "${barra}\n $(source trans -b pt:${id} "Escolha a porta em que o socks vai escutar")\n${barra}"
 while true; do
 unset porta_socket
 echo -ne "\033[1;37m"
@@ -980,13 +971,13 @@ read -p " Option: " portproxy
 	return 0
     esac
 done
-echo -e "${barra}\n $(source trans -b pt:${id} "Procedimento Concluido")\n${barra}"
+echo -e "${barra}\n $(source trans -b pt:${id} "Procedimento concluído")\n${barra}"
 return 0
 }
 
 gettunel_fun () {
 [[ -e /etc/adm-lite/gettun ]] && {
-echo -e "${barra}\n DETENIENDO GETTUNEL\n${barra}"
+echo -e "${barra}\n PARANDO GETTUNEL\n${barra}"
 pid=$(ps x | grep "get.py" | grep -v grep | awk '{print $1}')
 if [ "$pid" != "" ]; then
 for pids in $(echo $pid); do
@@ -994,18 +985,18 @@ fun_bar "kill -9 $pids"
 done
 fi
 rm /etc/adm-lite/gettun
-echo -e "${barra}\n Gettunel $(source trans -b es:${id} "desactivado")\n${barra}"
+echo -e "${barra}\n Gettunel $(source trans -b es:${id} "desativado")\n${barra}"
 return 0
 }
 echo -e "${barra}\n GETTUNEL PROXY\n${barra}"
-echo -e "${cor[3]} $(source trans -b pt:${id} "Escolha Uma Porta onde Gettunel vai Escutar")"
+echo -e "${cor[3]} $(source trans -b pt:${id} "Escolha uma porta onde o gettunel vai escutar")"
 while true; do
 unset portas
 echo -ne "\033[1;37m"
 	 read -p " Local-Port: " portas
 	 if [[ ! -z $portas ]]; then
 		 if [[ $(echo $portas|grep [0-9]) ]]; then
-		[[ $(mportas|grep $portas) = "" ]] && break || echo -e " $(source trans -b pt:${id} "Porta Invalida")"
+		[[ $(mportas|grep $portas) = "" ]] && break || echo -e " $(source trans -b pt:${id} "Porta inválida")"
 		fi
 	fi
 done
@@ -1020,7 +1011,7 @@ rm ./get.py
  echo -e "$barra"
  touch /etc/adm-lite/gettun
  } || {
-echo -e "$barra\n Gettunel$(source trans -b pt:${id} "nao foi iniciado")\n$barra"
+echo -e "$barra\n Gettunel$(source trans -b pt:${id} "não foi iniciado")\n$barra"
  }
 }
 
@@ -1045,44 +1036,44 @@ return 1
 }
 touch /etc/adm-lite/edbypass
 tput cuu1 && tput dl1
-echo -e "$barra\n $(source trans -b pt:${id} "Procedimento Concluido")\n$barra"
+echo -e "$barra\n $(source trans -b pt:${id} "Procedimento concluído")\n$barra"
 return 0
 }
 
 ssl_stunel () {
 [[ $(mportas|grep stunnel4|head -1) ]] && {
 echo -e "$barra"
-echo -e "\033[1;33m $(source trans -b pt:${id} "Parando Stunnel")"
+echo -e "\033[1;33m $(source trans -b pt:${id} "Parando stunnel")"
 echo -e "$barra"
 fun_bar "apt-get purge stunnel4 -y"
 echo -e "$barra"
-echo -e "\033[1;33m $(source trans -b pt:${id} "Parado Com Sucesso!")"
+echo -e "\033[1;33m $(source trans -b pt:${id} "Parado com sucesso!")"
 echo -e "$barra"
 return 0
 }
 echo -e "$barra"
 echo -e "\033[1;36m $(source trans -b pt:${id} "SSL Stunnel")"
 echo -e "$barra"
-echo -e "\033[1;33m $(source trans -b pt:${id} "Selecione Uma Porta De Redirecionamento Interna")"
-echo -e "\033[1;33m $(source trans -b pt:${id} "Ou seja, uma Porta no Seu Servidor Para o SSL")"
+echo -e "\033[1;33m $(source trans -b pt:${id} "Selecione uma porta de redirecionamento interna")"
+echo -e "\033[1;33m $(source trans -b pt:${id} "Ou seja, uma porta no seu servidor para o SSL")"
 echo -e "$barra"
          while true; do
          echo -ne "\033[1;37m"
          read -p " Local-Port: " portx
          if [[ ! -z $portx ]]; then
              if [[ $(echo $portx|grep [0-9]) ]]; then
-                [[ $(mportas|grep $portx|head -1) ]] && break || echo -e "\033[1;31m $(source trans -b pt:${id} "Porta Invalida")"
+                [[ $(mportas|grep $portx|head -1) ]] && break || echo -e "\033[1;31m $(source trans -b pt:${id} "Porta inválida")"
              fi
          fi
          done
 echo -e "$barra"
 DPORT="$(mportas|grep $portx|awk '{print $2}'|head -1)"
-echo -e "\033[1;33m $(source trans -b pt:${id} "Agora Presizamos Saber Qual Porta o SSL, Vai Escutar")"
+echo -e "\033[1;33m $(source trans -b pt:${id} "Agora precisamos saber em qual porta o SSL vai Escutar")"
 echo -e "$barra"
     while true; do
     read -p " Listen-SSL: " SSLPORT
     [[ $(mportas|grep $SSLPORT) ]] || break
-    echo -e "\033[1;33m $(source trans -b es:${id} "El puerto seleccionado ya se encuentra en uso")"
+    echo -e "\033[1;33m $(source trans -b es:${id} "A porta selecionada já está sendo usada")"
     unset SSLPORT
 	echo -e "$barra"
 	return 0
@@ -1105,12 +1096,12 @@ return 0
 
 painel_upload () {
 echo -e "$barra"
-echo -e "${cor[2]}$(source trans -b pt:${id} "Deseja Instalar Painel De Upload?")"
+echo -e "${cor[2]}$(source trans -b pt:${id} "Deseja instalar o painel de Upload?")"
 echo -e "$barra"
 read -p " [ s | n ]: " up_load
 echo -e "$barra"
    [[ "$up_load" = @(s|S|y|Y) ]] && bash /etc/adm-lite/insta_painel || {
-   echo -e "${cor[2]}$(source trans -b pt:${id} "Instalacao Abortada")"
+   echo -e "${cor[2]}$(source trans -b pt:${id} "Instalação abortada")"
    echo -e "$barra"
    }
 }
@@ -1128,13 +1119,13 @@ if [ -d '/usr/local/ddos' ]; then
 	fi
 	sleep 4s
 	echo -e "$barra"
-	echo -e "\033[1;31m ANTIDDOS DESINSTALADO CON EXITO\033[1;37m"
+	echo -e "\033[1;31m ANTI-DDOS DESINSTALADO COM SUCESSO\033[1;37m"
 	echo -e "$barra"
 	return 1
 else
 	mkdir /usr/local/ddos
 fi
-wget -q -O /usr/local/ddos/ddos.conf https://raw.githubusercontent.com/CarlosPBric005/ADM-ULTIMATE/master/DDOS/ddos.conf -o /dev/null
+wget -q -O /usr/local/ddos/ddos.conf https://raw.githubusercontent.com/Darkbot345/ultimateadm/master/ddos.conf -o /dev/null
 wget -q -O /usr/local/ddos/LICENSE http://www.inetbase.com/scripts/ddos/LICENSE -o /dev/null
 wget -q -O /usr/local/ddos/ignore.ip.list http://www.inetbase.com/scripts/ddos/ignore.ip.list -o /dev/null
 wget -q -O /usr/local/ddos/ddos.sh http://www.inetbase.com/scripts/ddos/ddos.sh -o /dev/null
@@ -1143,7 +1134,7 @@ cp -s /usr/local/ddos/ddos.sh /usr/local/sbin/ddos
 /usr/local/ddos/ddos.sh --cron > /dev/null 2>&1
 sleep 2s
 echo -e "$barra"
-echo -e "\033[1;32m ANTIDDOS INSTALADO CON EXITO.\033[1;37m"
+echo -e "\033[1;32m ANTI-DDOS INSTALADO COM SUCESSO.\033[1;37m"
 echo -e "$barra"
 }
 
