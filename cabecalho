@@ -499,10 +499,11 @@ usermod -p $(openssl passwd -1 $senha) $CLIENT
 #Arquivo
 echo -e " ${txt[318]}"
 echo -e "${cor[1]} =================================== \033[1;37m"
-read -p " [S/N]: " -e -i S newfile
+$ka=n
+read -p " [S/N]: " ka > /dev/null 2>&1
   [[ ${newfile} = @(s|S|y|Y) ]] && {
   echo -e " ${txt[319]}"
-  read -p " [S/N]: " -e -i S ovpnauth
+  read -p " [S/N]: " ka > /dev/null 2>&1
   [[ ${ovpnauth} != @(s|S|y|Y) ]] && sed -i "s;auth-user-pass;<auth-user-pass>\n$CLIENT\n$senha\n</auth-user-pass>;g" $HOME/$CLIENT.ovpn
   cd $HOME
   zip ./$CLIENT.zip ./$CLIENT.ovpn > /dev/null 2>&1
