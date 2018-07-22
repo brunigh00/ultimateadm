@@ -468,19 +468,22 @@ read -p " [S/N]: " -e -i n sshsn
 return 0
 }
 
-#GERA NOVO CLIENTE
 newclient () {
-cp /etc/openvpn/client-common.txt $HOME/$1.ovpn > /dev/null 2>&1
-echo "<key>
-$(cat /etc/openvpn/client-key.pem) > /dev/null 2>&1
-</key>
-<cert>
-$(cat /etc/openvpn/client-cert.pem) > /dev/null 2>&1
-</cert>
-<ca>
-$(cat /etc/openvpn/ca.pem) > /dev/null 2>&1
-</ca>" >> $HOME/$1.ovpn > /dev/null 2>&1
-}
+	# Generates the custom client.ovpn
+	cp /etc/openvpn/client-common.txt $HOME/$1.ovpn
+	echo "<key>
+	$(cat /etc/openvpn/easy-rsa/pki/ca.crt)
+	</key> 
+	<cert>
+	$(cat /etc/openvpn/easy-rsa/pki/issued/$1.crt)
+	</cert>
+	<ca>
+	$(cat /etc/openvpn/easy-rsa/pki/private/$1.key)
+	</ca>
+	<tls-auth>
+	cat /etc/openvpn/ta.key >> ~/$1.ovpn
+	</tls-auth>" >> $HOME/$1.ovpn
+ }
 
 open_1 () {
 CLIENT="$1"
@@ -499,7 +502,7 @@ usermod -p $(openssl passwd -1 $senha) $CLIENT
 #Arquivo
 echo -e " ${txt[318]}"
 echo -e "${cor[1]} =================================== \033[1;37m"
-read -p "aperte enter" enter
+read -p "aperte enter 2 vezes" enter
 read -p " [S/N]: " -e -i N > /dev/null 2>&1
   [[ ${newfile} = @(s|S|y|Y) ]] && {
   echo -e " ${txt[319]}"
