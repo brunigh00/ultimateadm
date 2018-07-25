@@ -459,7 +459,7 @@ txt_ofuscatw=$(echo $txtofus|rev)
 fun_atualizar () {
 cd /etc/adm-lite
 chmod 777 ./*
-echo -e "${cor[3]} "Realmente deseja atualizar seu ADM-Ultimate?""
+echo -e "${cor[3]} "¿Realmente desea actualizar su ADM-Ultimate?""
 read -p " [S/N]: " -e -i n sshsn
 [[ "$sshsn" = @(s|S|y|Y) ]] && {
 [[ -e /etc/adm-lite/idioma ]] && rm /etc/adm-lite/idioma
@@ -468,23 +468,19 @@ read -p " [S/N]: " -e -i n sshsn
 return 0
 }
 
+#GERA NOVO CLIENTE
 newclient () {
-	# Generates the custom client.ovpn
-	cp /etc/openvpn/client-common.txt $HOME/$1.ovpn
-	echo "<key>
-	$(cat /etc/openvpn/easy-rsa/pki/ca.crt)
-	</key> 
-	<cert>
-	$(cat /etc/openvpn/easy-rsa/pki/issued/$1.crt)
-	</cert>
-	<ca>
-	$(cat /etc/openvpn/easy-rsa/pki/private/$1.key)
-	</ca>
-	<tls-auth>
-	cat /etc/openvpn/ta.key >> ~/$1.ovpn
-	</tls-auth>" >> $HOME/$1.ovpn
- }
-
+cp /etc/openvpn/client-common.txt $HOME/$1.ovpn
+echo "<key>
+$(cat /etc/openvpn/client-key.pem)
+</key>
+<cert>
+$(cat /etc/openvpn/client-cert.pem)
+</cert>
+<ca>
+$(cat /etc/openvpn/ca.pem)
+</ca>" >> $HOME/$1.ovpn
+}
 open_1 () {
 CLIENT="$1"
 senha="$2"
@@ -512,6 +508,7 @@ read -p " [S/N]: " -e -i S newfile
   echo -e "\033[1;31m ${txt[320]} ($HOME/$CLIENT.zip)"
   echo -e "\033[1;32m ${txt[321]} ( * menu * opcion 2 * opcion 8 )"
   }
+rm ./$CLIENT.ovpn
 cd /etc/adm-lite
 echo "senha: $senha" > $dir_user/$CLIENT
 echo "limite: $limit" >> $dir_user/$CLIENT
