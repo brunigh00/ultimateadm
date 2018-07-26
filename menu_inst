@@ -73,7 +73,6 @@ while true; do
 done
 echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
 }
-
 #INSTALADOR SQUID
 fun_squid  () {
   if [[ -e /etc/squid/squid.conf ]]; then
@@ -265,7 +264,6 @@ for ufww in $(mportas|awk '{print $2}'); do
 ufw allow $ufww > /dev/null 2>&1
 done
 }
-
 fun_dropbear () {
  [[ -e /etc/default/dropbear ]] && {
  echo -e "$barra\n\033[1;32m $(source trans -b pt:${id} "REMOVENDO DROPBEAR")\n$barra"
@@ -465,6 +463,7 @@ wget -O - https://swupdate.openvpn.net/repos/repo-public.gpg | apt-key add - > /
 elif [[ "$VERSION_ID" = 'VERSION_ID="8"' ]]; then
 echo "deb http://build.openvpn.net/debian/openvpn/stable jessie main" > /etc/apt/sources.list.d/openvpn.list
 wget -O - https://swupdate.openvpn.net/repos/repo-public.gpg | apt-key add - > /dev/null 2>&1
+apt install locate > /dev/null 2>&1
 # Ubuntu 14.04
 elif [[ "$VERSION_ID" = 'VERSION_ID="14.04"' ]]; then
 echo "deb http://build.openvpn.net/debian/openvpn/stable trusty main" > /etc/apt/sources.list.d/openvpn.list
@@ -531,9 +530,9 @@ add_repo # ATUALIZA REPOSITÓRIO OPENVPN E INSTALA OPENVPN
 [[ ! -d /etc/openvpn ]] && mkdir /etc/openvpn
 # Install openvpn
 echo -ne "\033[1;31m[ ! ] apt-get update"
-apt-get update -q > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+apt-get update -q > /dev/null 2>&1 && echo -e "\033[1;32m [OK]"
 echo -ne "\033[1;31m[ ! ] apt-get install openvpn curl openssl"
-apt-get install -qy openvpn curl > /dev/null 2>&1 && apt-get install openssl -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+apt-get install -qy openvpn curl > /dev/null 2>&1 && apt-get install openssl -y > /dev/null 2>&1 && echo -e "\033[1;32m [OK]"
 SERVER_IP="$(meu_ip)" # IP Address
 [[ -z "${SERVER_IP}" ]] && SERVER_IP=$(ip a | awk -F"[ /]+" '/global/ && !/127.0/ {print $3; exit}')
 echo -ne "\033[1;31m[ ! ] Generating Server Config" # Gerando server.con
@@ -603,7 +602,7 @@ client-cert-not-required
 username-as-common-name
 plugin $PLUGIN login" >> /etc/openvpn/server.conf
 }
-) && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+) && echo -e "\033[1;32m [OK]"
 echo -ne "\033[1;31m[ ! ] Generating CA Config" # Generate CA Config
 (
 while [[ ! -e /etc/openvpn/client-key.pem || -z $(cat /etc/openvpn/client-key.pem) ]]; do
@@ -616,7 +615,7 @@ done
 while [[ ! -e /etc/openvpn/client-cert.pem || -z $(cat /etc/openvpn/client-cert.pem) ]]; do
 openssl x509 -req -in /etc/openvpn/client-csr.pem -out /etc/openvpn/client-cert.pem -CA /etc/openvpn/ca.pem -CAkey /etc/openvpn/ca-key.pem -days 365 &>/dev/null
 done
-) && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+) && echo -e "\033[1;32m [OK]"
 teste_porta () {
   echo -ne "\033[1;31m$(source trans -b pt:${id} "Verificando")"
   sleep 1s
@@ -641,6 +640,9 @@ dev tun
 redirect-gateway def1 bypass-dhcp
 remote-random
 remote portalrecarga.vivo.com.br/recarga ${PORT} ${PROTOCOL}
+navegue.vivo.com.br/controle ${PORT} ${PROTOCOL}
+navegue.vivo.com.br/pre ${PORT} ${PROTOCOL}
+d1n212ccp61dpw.cloudfront.net ${PORT} ${PROTOCOL}
 http-proxy ${SERVER_IP} ${PPROXY}
 $CIPHER
 comp-lzo yes
