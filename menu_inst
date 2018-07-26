@@ -704,26 +704,21 @@ if hash sestatus 2>/dev/null; then
  fi
 fi
 #Liberando DNS
+DDNS=S
 agrega_dns () {
-echo -e "\033[1;33m$(fun_trans ${id} "Digite o DNS que deseja adicionar")"
-read -p "[NewDNS]: " SDNS
-cat /etc/hosts|grep -v "$SDNS" > /etc/hosts.bak && mv -f /etc/hosts.bak /etc/hosts
-[[ -e /etc/opendns ]] && echo "$SDNS" >> /etc/opendns || echo "$SDNS" > /etc/opendns
-[[ -z $NEWDNS ]] && NEWDNS="$SDNS" || NEWDNS="$NEWDNS $SDNS"
-unset SDNS
+echo -e "\033[1;33m $(source trans -b pt:${id} "Digite o DNS que deseja Adicionar")"
+read -p " [NewDNS]: " NEWDNS
+dns_var=$(cat /etc/hosts|grep -v "$NEWDNS")
+echo "127.0.0.1 $NEWDNS" > /etc/hosts
+echo "$dns_var" >> /etc/hosts
+unset NEWDNS 
 }
-echo -e "$barra\n\033[1;33m$(source trans -b pt:${id} "Última etapa, configurações de DNS")\n$barra"
-while [[ $DDNS != @(n|N) ]]; do
+echo -e "$barra\n \033[1;33m$(source trans -b pt:${id} "Ultima Etapa, Configuracoes DNS")\n$barra"
+while [[ $DDNS = @(s|S|y|Y) ]]; do
 echo -ne "\033[1;33m"
-read -p "Adicionar DNS [S/N]: " -e -i n DDNS
+read -p " Adicionar DNS [S/N]: " -e -i n DDNS
 [[ $DDNS = @(s|S|y|Y) ]] && agrega_dns
 done
-[[ ! -z $NEWDNS ]] && {
-sed -i "/127.0.0.1[[:blank:]]\+localhost/a 127.0.0.1 $NEWDNS" /etc/hosts
-for DENESI in $(echo $NEWDNS); do
-sed -i "/remote ${SERVER_IP} ${PORT} ${PROTOCOL}/a remote ${DENESI} ${PORT} ${PROTOCOL}" /etc/openvpn/client-common.txt
-done
-}
 echo -e "$barra"
 # REINICIANDO OPENVPN
 if [[ "$OS" = 'debian' ]]; then
