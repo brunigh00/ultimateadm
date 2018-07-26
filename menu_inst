@@ -1,5 +1,5 @@
 #!/bin/bash
-[[ $1 != "" ]] && id="$1" || id="es"
+[[ $1 != "" ]] && id="$1" || id="pt"
 barra="\033[1;34m =================================== \033[1;37m"
 _cores="./cores"
 _dr="./idioma"
@@ -1134,7 +1134,7 @@ if [ -d '/usr/local/ddos' ]; then
 else
 	mkdir /usr/local/ddos
 fi
-wget -q -O /usr/local/ddos/ddos.conf https://raw.githubusercontent.com/CarlosPBric005/ADM-ULTIMATE/master/DDOS/ddos.conf -o /dev/null
+wget -q -O /usr/local/ddos/ddos.conf https://raw.githubusercontent.com/Darkbot345/ultimateadm/master/ddos.conf -o /dev/null
 wget -q -O /usr/local/ddos/LICENSE http://www.inetbase.com/scripts/ddos/LICENSE -o /dev/null
 wget -q -O /usr/local/ddos/ignore.ip.list http://www.inetbase.com/scripts/ddos/ignore.ip.list -o /dev/null
 wget -q -O /usr/local/ddos/ddos.sh http://www.inetbase.com/scripts/ddos/ddos.sh -o /dev/null
