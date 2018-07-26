@@ -727,30 +727,44 @@ if [[ "$OS" = 'debian' ]]; then
  sed -i 's|/etc/openvpn/server|/etc/openvpn|' /lib/systemd/system/openvpn\@.service
  sed -i 's|%i.conf|server.conf|' /lib/systemd/system/openvpn\@.service
  #systemctl daemon-reload
+ (
  systemctl restart openvpn
  systemctl enable openvpn
+ ) > /dev/null 2>&1
+ echo -ne
  else
  /etc/init.d/openvpn restart
  fi
 else
  if pgrep systemd-journal; then
+  (
  systemctl restart openvpn@server.service
  systemctl enable openvpn@server.service
+  ) > /dev/null 2>&1
+  echo -ne
  else
  service openvpn restart
  chkconfig openvpn on
  fi
 fi
-service squid restart &>/dev/null
-service squid3 restart &>/dev/null
 apt-get install ufw -y > /dev/null 2>&1
 for ufww in $(mportas|awk '{print $2}'); do
 ufw allow $ufww > /dev/null 2>&1
 done
-echo -e "$barra\n\033[1;33m$(source trans -b pt:${id} "Openvpn configurado com sucesso!")"
-echo -e "\033[1;33m$(source trans -b pt:${id} "Agora é só criar um usuário para gerar um cliente!")\n$barra"
+#Restart OPENVPN
+(
+killall openvpn 2>/dev/null
+systemctl stop openvpn@server.service > /dev/null 2>&1
+service openvpn stop > /dev/null 2>&1
+sleep 0.1s
+cd /etc/openvpn > /dev/null 2>&1
+/etc/iptables-openvpn > /dev/null 2>&1
+openvpn --config server.conf & > /dev/null 2>&1
+) > /dev/null 2>&1
+echo -e "$barra\n \033[1;33m$(source trans -b pt:${id} "Openvpn Configurado Com Sucesso!")"
+echo -e " \033[1;33m$(source trans -b pt:${id} "Agora Criar Um Usuario Para Gerar um Cliente!")\n$barra"
 return 0
-}	
+}
 fun_openvpn () {
 [[ -e /etc/openvpn/server.conf ]] && {
 unset OPENBAR
