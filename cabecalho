@@ -509,18 +509,6 @@ read -p " [S/N]: " -e -i n newfile > /dev/null 2>&1
   echo -e "\033[1;32m ${txt[321]} ( * menu * opcion 2 * opcion 8 )"
   fi
   }
-cd /etc/adm-lite
-echo "senha: $senha" > $dir_user/$CLIENT
-echo "limite: $limit" >> $dir_user/$CLIENT
-echo "data: $valid" >> $dir_user/$CLIENT
-}
-
-open_2 () {
-CLIENT="$1"
-userdel --force $CLIENT
-cd /etc/adm-lite
-[[ -e $dir_user/$CLIENT ]] && rm $dir_user/$CLIENT
-}
 
 #SISTEMA PORTAS
 open_port () {
