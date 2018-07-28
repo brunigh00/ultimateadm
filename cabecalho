@@ -502,7 +502,7 @@ read -p " [S/N]: " -e -i n newfile > /dev/null 2>&1
   echo -e " ${txt[319]}"
   fi
   read -p " [S/N]: " -e -i n ovpnauth > /dev/null 2>&1
-  if [[ ${ovpnauth} != @(s|S|y|Y) ]]; then sed -i "s;auth-user-pass;<auth-user-pass>\n$CLIENT\n$senha\n</auth-user-pass>;g" $HOME/$CLIENT.ovpn
+  if [[ ${ovpnauth} = @(s|S|y|Y) ]]; then sed -i "s;auth-user-pass;<auth-user-pass>\n$CLIENT\n$senha\n</auth-user-pass>;g" $HOME/$CLIENT.ovpn
   cd $HOME
   zip ./$CLIENT.zip ./$CLIENT.ovpn > /dev/null 2>&1
   echo -e "\033[1;31m ${txt[320]} ($HOME/$CLIENT.zip)"
