@@ -474,12 +474,6 @@ newclient () {
 	echo "<ca>
 	$(cat /etc/openvpn/easy-rsa/pki/ca.crt) > /dev/null 2>&1
 	</ca>
-	<cert>
-	$(cat /etc/openvpn/easy-rsa/pki/issued/$1.crt) > /dev/null 2>&1
-	</cert>
-	<key>
-	$(cat /etc/openvpn/easy-rsa/pki/private/$1.key) > /dev/null 2>&1
-	</key>
 	<tls-auth>
 	$(cat /etc/openvpn/ta.key) > /dev/null 2>&1
 	</tls-auth>" >> $HOME/$1.ovpn
@@ -503,21 +497,21 @@ usermod -p $(openssl passwd -1 $senha) $CLIENT
 echo -e " ${txt[318]}"
 echo -e "${cor[1]} =================================== \033[1;37m"
 read -p "aperte duas vezes enter para continuar" enter
-read -p " [S/N]: " -e -i N newfile > /dev/null 2>&1
+read -p " [S/N]: " -e -i n newfile > /dev/null 2>&1
   [[ ${newfile} = @(s|S|y|Y) ]] && {
   echo -e " ${txt[319]}"
-  read -p " [S/N]: " -e -i N ovpnauth > /dev/null 2>&1
+  read -p " [S/N]: " -e -i n ovpnauth > /dev/null 2>&1
   [[ ${ovpnauth} != @(s|S|y|Y) ]] && sed -i "s;auth-user-pass;<auth-user-pass>\n$CLIENT\n$senha\n</auth-user-pass>;g" $HOME/$CLIENT.ovpn
   cd $HOME
   zip ./$CLIENT.zip ./$CLIENT.ovpn > /dev/null 2>&1
   echo -e "\033[1;31m ${txt[320]} ($HOME/$CLIENT.zip)"
   echo -e "\033[1;32m ${txt[321]} ( * menu * opcion 2 * opcion 8 )"
-  rm /root/$CLIENT.ovpn
   }
 cd /etc/adm-lite
 echo "senha: $senha" > $dir_user/$CLIENT
 echo "limite: $limit" >> $dir_user/$CLIENT
 echo "data: $valid" >> $dir_user/$CLIENT
+rm /root/$CLIENT.ovpn
 }
 
 open_2 () {
