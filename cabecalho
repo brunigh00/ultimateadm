@@ -472,16 +472,16 @@ return 0
 newclient () {
  cp /etc/openvpn/client-common.txt $HOME/$1.ovpn
 	echo "<ca>
-	$(cat /etc/openvpn/easy-rsa/pki/ca.crt)
+	$(cat /etc/openvpn/easy-rsa/pki/ca.crt) > /dev/null 2>&1
 	</ca>
 	<cert>
-	$(cat /etc/openvpn/easy-rsa/pki/issued/$1.crt)
+	$(cat /etc/openvpn/easy-rsa/pki/issued/$1.crt) > /dev/null 2>&1
 	</cert>
 	<key>
-	$(cat /etc/openvpn/easy-rsa/pki/private/$1.key)
+	$(cat /etc/openvpn/easy-rsa/pki/private/$1.key) > /dev/null 2>&1
 	</key>
 	<tls-auth>
-	$(cat /etc/openvpn/ta.key)
+	$(cat /etc/openvpn/ta.key) > /dev/null 2>&1
 	</tls-auth>" >> $HOME/$1.ovpn
 }
 
