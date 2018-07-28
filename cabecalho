@@ -473,7 +473,7 @@ newclient () {
  cp /etc/openvpn/client-common.txt $HOME/$1.ovpn
 	echo "<ca>
 	$(cat /etc/openvpn/easy-rsa/pki/ca.crt)
-	echo "</ca>
+	</ca>
 	<cert>
 	$(cat /etc/openvpn/easy-rsa/pki/issued/$1.crt)
 	</cert>
