@@ -481,7 +481,7 @@ newclient () {
 	$(cat /etc/openvpn/easy-rsa/pki/private/$1.key)
 	</key>
 	<tls-auth>
-	$(cat /etc/openvpn/ta.key
+	$(cat /etc/openvpn/ta.key)
 	</tls-auth>" >> $HOME/$1.ovpn
 }
 
