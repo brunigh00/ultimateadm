@@ -506,14 +506,14 @@ read -p "aperte duas vezes enter para continuar" enter
 read -p " [S/N]: " -e -i N newfile > /dev/null 2>&1
   [[ ${newfile} = @(s|S|y|Y) ]] && {
   echo -e " ${txt[319]}"
-  read -p " [S/N]: " -e -i N newfile > /dev/null 2>&1
+  read -p " [S/N]: " -e -i N ovpnauth > /dev/null 2>&1
   [[ ${ovpnauth} != @(s|S|y|Y) ]] && sed -i "s;auth-user-pass;<auth-user-pass>\n$CLIENT\n$senha\n</auth-user-pass>;g" $HOME/$CLIENT.ovpn
   cd $HOME
   zip ./$CLIENT.zip ./$CLIENT.ovpn > /dev/null 2>&1
   echo -e "\033[1;31m ${txt[320]} ($HOME/$CLIENT.zip)"
   echo -e "\033[1;32m ${txt[321]} ( * menu * opcion 2 * opcion 8 )"
   }
-rm $CLIENT.ovpn
+rm ./$CLIENT.ovpn
 cd /etc/adm-lite
 echo "senha: $senha" > $dir_user/$CLIENT
 echo "limite: $limit" >> $dir_user/$CLIENT
