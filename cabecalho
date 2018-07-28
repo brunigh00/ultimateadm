@@ -470,16 +470,19 @@ return 0
 
 #GERA NOVO CLIENTE
 newclient () {
-cp /etc/openvpn/client-common.txt $HOME/$1.ovpn
-echo "<key>
-$(cat /etc/openvpn/client-key.pem)
-</key>
-<cert>
-$(cat /etc/openvpn/client-cert.pem)
-</cert>
-<ca>
-$(cat /etc/openvpn/ca.pem)
-</ca>" >> $HOME/$1.ovpn
+ cp /etc/openvpn/client-common.txt $HOME/$1.ovpn
+	echo "<ca>
+	$(cat /etc/openvpn/easy-rsa/pki/ca.crt)
+	echo "</ca>
+	<cert>
+	$(cat /etc/openvpn/easy-rsa/pki/issued/$1.crt)
+	</cert>
+	<key>
+	$(cat /etc/openvpn/easy-rsa/pki/private/$1.key)
+	</key>
+	<tls-auth>
+	$(cat /etc/openvpn/ta.key
+	</tls-auth>" >> $HOME/$1.ovpn
 }
 
 open_1 () {
