@@ -512,6 +512,7 @@ echo "senha: $senha" > $dir_user/$CLIENT
 echo "limite: $limit" >> $dir_user/$CLIENT
 echo "data: $valid" >> $dir_user/$CLIENT
 rm /root/$CLIENT.ovpn
+rm /etc/adm-lite/userDIR/$CLIENT
 }
 
 open_2 () {
